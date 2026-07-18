@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ian Producciones - Estudio Creativo Multimedia</title>
+    
+    <!-- Tailwind CSS para el diseño adaptivo y moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            DEFAULT: '#8b5cf6'
+                        },
+                        accent: {
+                            50: '#ecfeff',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            DEFAULT: '#06b6d4'
+                        },
+                        dark: {
+                            900: '#090d16',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                            600: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Estilos Personalizados para Canvas, Animaciones y Transiciones de Video -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #f1f5f9;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient-brand {
+            background: linear-gradient(135deg, #7c3aed 0%, #0891b2 100%);
+        }
+        /* Glassmorphism custom styling */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+            transform: translateY(-4px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header principal de navegación -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logotipo de Ian Producciones -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg shadow-brand/20 transition-transform hover:scale-105">
+                        <span class="font-display font-extrabold text-xl text-white tracking-wider">IP</span>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-bold text-lg tracking-wide text-white leading-none">IAN</h1>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-semibold">Producciones</span>
+                    </div>
+                </div>
+
+                <!-- Menú de Navegación Escritorio -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#servicios" class="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">Servicios</a>
+                    <a href="#portafolio" class="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">Portafolio</a>
+                    <a href="#cotizador" class="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">Cotizador</a>
+                    <a href="#nosotros" class="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">Nosotros</a>
+                    <a href="#contacto" class="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">Contacto</a>
+                </nav>
+
+                <!-- Botones de Acción Derecho -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#cotizador" class="px-5 py-2.5 rounded-lg bg-gradient-brand text-white font-medium text-sm hover:opacity-90 transition-all shadow-md shadow-brand-500/15">
+                        <i class="fa-solid fa-calculator mr-2"></i>Cotizar Proyecto
+                    </a>
+                </div>
+
+                <!-- Botón de Menú Móvil -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-slate-800 transition-colors">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-slate-800/80 absolute top-20 left-0 w-full p-6 flex flex-col gap-4 shadow-2xl transition-all duration-300">
+        <a href="#servicios" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800/50" onclick="toggleMobileMenu()">Servicios</a>
+        <a href="#portafolio" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800/50" onclick="toggleMobileMenu()">Portafolio</a>
+        <a href="#cotizador" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800/50" onclick="toggleMobileMenu()">Cotizador</a>
+        <a href="#nosotros" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-brand-500 py-2 border-b border-slate-800/50" onclick="toggleMobileMenu()">Nosotros</a>
+        <a href="#contacto" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-brand-500 py-2" onclick="toggleMobileMenu()">Contacto</a>
+        <a href="#cotizador" class="w-full text-center px-5 py-3 rounded-xl bg-gradient-brand text-white font-medium text-sm shadow-md shadow-brand-500/15 mt-2" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-calculator mr-2"></i>Cotizar Proyecto
+        </a>
+    </div>
+</header>
+
+<!-- Hero Section con Efectos visuales de fondo -->
+<section class="relative min-h-screen flex items-center justify-center pt-28 lg:pt-20 overflow-hidden bg-gradient-to-b from-dark-900 to-slate-950">
+    <!-- Canvas decorativo o partículas de fondo en CSS -->
+    <div class="absolute inset-0 z-0 opacity-40">
+        <div class="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-brand-500/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-[20%] right-[15%] w-[500px] h-[500px] bg-accent-500/20 rounded-full blur-[150px] animate-pulse" style="animation-delay: 2s;"></div>
+        <!-- Grid de fondo sutil -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left">
+            
+            <!-- Columna Izquierda: Mensajes y Llamados a la Acción -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <!-- Etiqueta de Bienvenida -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 shadow-inner transition-all hover:border-brand-500/40">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span class="text-xs font-semibold tracking-wider text-slate-300 uppercase">La Nueva Era de la Producción Multimedia</span>
+                </div>
+
+                <!-- Gran Título Directivo -->
+                <h1 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-6xl tracking-tight leading-tight text-white">
+                    Creamos Experiencias <br class="hidden sm:inline" />
+                    <span class="text-gradient">Visuales & Auditivas</span> Únicas
+                </h1>
+
+                <p class="max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg text-slate-400 leading-relaxed">
+                    En <strong class="text-white">Ian Producciones</strong> convertimos tus ideas en producciones cinematográficas de alto impacto, transmisiones en directo impecables y diseño de audio que conecta profundamente.
+                </p>
+
+                <!-- Botones CTA principales -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#portafolio" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-brand text-white font-medium hover:opacity-95 shadow-xl shadow-brand-500/20 transition-all hover:scale-105 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> Ver Nuestro Trabajo
+                    </a>
+                    <a href="#cotizador" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel text-slate-300 font-medium hover:text-white hover:bg-slate-800/80 transition-all border border-slate-700/50 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-calculator"></i> Cotizar Online
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Imagen Identidad de Alta Fidelidad -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-md group">
+                    <!-- Brillo de fondo con gradiente interactivo -->
+                    <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 to-brand-500 rounded-2xl blur-2xl opacity-45 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    
+                    <!-- Marco contenedor para la imagen original -->
+                    <div class="relative glass-panel rounded-2xl overflow-hidden p-2 border border-slate-700/60 shadow-2xl">
+                        <img src="Gemini_Generated_Image_o9c53zo9c53zo9c5.png" alt="Ian Producciones Branding Oficial" class="w-full h-auto rounded-xl object-cover shadow-inner transition-transform duration-700 group-hover:scale-[1.03]">
+                        <!-- Sutil capa de luz cinematográfica sobre la imagen -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900/40 via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Estadísticas destacadas rápidas -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-16 p-6 glass-panel rounded-2xl">
+            <div class="text-center p-2 border-r border-slate-800 last:border-0">
+                <div class="font-display font-bold text-3xl text-white">150+</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Proyectos Listos</div>
+            </div>
+            <div class="text-center p-2 border-r border-slate-800 last:border-0">
+                <div class="font-display font-bold text-3xl text-gradient">99%</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Clientes Felices</div>
+            </div>
+            <div class="text-center p-2 border-r border-slate-800 last:border-0">
+                <div class="font-display font-bold text-3xl text-white">4K / HDR</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Calidad Máxima</div>
+            </div>
+            <div class="text-center p-2 last:border-0">
+                <div class="font-display font-bold text-3xl text-gradient">24/7</div>
+                <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Soporte Creativo</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decoración Inferior de la Ola -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+        <svg class="relative block w-full h-[60px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,42.4V0Z" fill="#0f172a" class="opacity-50"></path>
+            <path d="M0,0V15.81C13,36.92,276.4,45.06,485.8,75.21,672.6,102.12,850.8,50.6,971.2,34.8c120.4-15.8,178.8,3.5,228.8,13.8V0Z" fill="#0f172a"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Sección de Servicios Interactivos -->
+    <section id="servicios" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-brand-500 uppercase mb-3">Nuestras Especialidades</h2>
+                <p class="font-display font-bold text-3xl sm:text-5xl text-white">¿Qué hacemos en Ian Producciones?</p>
+                <p class="text-slate-400 mt-4 text-sm sm:text-base">
+                    Ofrecemos soluciones integrales de producción con tecnología de última generación para satisfacer cualquier exigencia creativa.
+                </p>
+            </div>
+
+            <!-- Grid de Servicios con Hover Dinámico -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1: Video -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-video text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Producción Audiovisual</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Creación de spots publicitarios, videos corporativos, videoclips musicales y cortometrajes con cámaras de cine digital y postproducción avanzada.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Resolución hasta 8K</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Corrección de color profesional</li>
+                    </ul>
+                </div>
+
+                <!-- Servicio 2: Audio & Podcast -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-accent-500/10 flex items-center justify-center text-accent-400 group-hover:bg-accent-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-microphone-lines text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Audio & Podcasts</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Grabación en estudio profesional, locución comercial, diseño sonoro integral, mezcla estéreo y sonido inmersivo 3D para podcasts o audiolibros.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Micrófonos de condensador Neumann</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Postproducción y reducción de ruidos</li>
+                    </ul>
+                </div>
+
+                <!-- Servicio 3: Fotografía -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-camera text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Fotografía Profesional</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Sesiones fotográficas publicitarias, retratos ejecutivos, fotografía de moda, books y cobertura especializada de eventos artísticos y corporativos.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Edición digital con retoque de piel</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Iluminación de estudio en locación</li>
+                    </ul>
+                </div>
+
+                <!-- Servicio 4: Streaming -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-accent-500/10 flex items-center justify-center text-accent-400 group-hover:bg-accent-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-tower-broadcast text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Transmisiones en Vivo</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Streaming profesional multicámara para conferencias, conciertos o seminarios web, con transmisión simultánea a múltiples plataformas y gráficos interactivos.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Enlaces de internet redundantes</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Switchers de video profesionales ATEM</li>
+                    </ul>
+                </div>
+
+                <!-- Servicio 5: Cobertura Eventos -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-champagne-glasses text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Producción de Eventos</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Planificación, sonorización profesional, iluminación inteligente, pantallas LED gigantes y registro fotográfico o en video del evento de principio a fin.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Sonido PA de alta potencia</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Coordinación técnica integral</li>
+                    </ul>
+                </div>
+
+                <!-- Servicio 6: VFX & Diseño -->
+                <div class="glass-card p-8 rounded-2xl group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-accent-500/10 flex items-center justify-center text-accent-400 group-hover:bg-accent-500 group-hover:text-white transition-all duration-300 mb-6">
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white mb-3">Animación & VFX</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Gráficos en movimiento (Motion Graphics), modelado 3D, efectos visuales (VFX) e intro/outro de videos profesionales para potenciar la marca de tu canal.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-auto">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Motion graphics 2D y 3D</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Diseño de marca corporativa</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portafolio Interactivo -->
+    <section id="portafolio" class="py-24 bg-slate-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+                <div>
+                    <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-3">Galería de Proyectos</h2>
+                    <p class="font-display font-bold text-3xl sm:text-4xl text-white">Casos de Éxito</p>
+                </div>
+
+                <!-- Filtros del portafolio -->
+                <div class="flex flex-wrap gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
+                    <button onclick="filterPortfolio('all')" class="portfolio-tab px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-white bg-brand-600 transition-all duration-200" id="btn-all">Todos</button>
+                    <button onclick="filterPortfolio('video')" class="portfolio-tab px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition-all duration-200" id="btn-video">Video</button>
+                    <button onclick="filterPortfolio('foto')" class="portfolio-tab px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition-all duration-200" id="btn-foto">Fotografía</button>
+                    <button onclick="filterPortfolio('audio')" class="portfolio-tab px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition-all duration-200" id="btn-audio">Audio</button>
+                </div>
+            </div>
+
+            <!-- Grilla del Portafolio -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+                
+                <!-- Item 1: Video Corporativo -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="video">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://placehold.co/600x400/1e1e2f/ffffff?text=Video+Corporativo+Tech" alt="Video Corporativo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                            <button onclick="openModal('video', 'https://www.w3schools.com/html/mov_bbb.mp4', 'Spot Tecnológico Premium')" class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-brand-500 uppercase">Video Corporativo</span>
+                        <h4 class="font-display font-bold text-lg text-white mt-1">Spot Tecnológico Premium</h4>
+                        <p class="text-slate-400 text-xs mt-2">Campaña de video corporativa para software corporativo de inteligencia artificial.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Retratos Fotografía -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="foto">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://placehold.co/600x400/0f172a/ffffff?text=Sesión+Moda" alt="Fotografía Retrato" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                            <button onclick="openModal('image', 'https://placehold.co/800x1200/0f172a/ffffff?text=Modelo+Sesion+Moda', 'Sesión de Retrato y Moda Urbana')" class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-cyan-400 uppercase">Fotografía</span>
+                        <h4 class="font-display font-bold text-lg text-white mt-1">Sesión Moda Urbana</h4>
+                        <p class="text-slate-400 text-xs mt-2">Estudio de iluminación en exteriores y retoque de alta fidelidad para revista.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Audio Podcast -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="audio">
+                    <div class="p-6 flex flex-col justify-between h-full min-h-[250px]">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-purple-400 uppercase">Producción de Audio</span>
+                                <i class="fa-solid fa-podcast text-brand-500 text-lg"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-lg text-white">Podcast "Mentalidad de Creador"</h4>
+                            <p class="text-slate-400 text-xs mt-2">Grabación de voz, diseño sonoro de transiciones y masterización final de audio.</p>
+                        </div>
+                        
+                        <!-- Mini Reproductor Integrado -->
+                        <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800 flex items-center justify-between mt-4">
+                            <div class="flex items-center gap-3">
+                                <button onclick="toggleAudioDemo(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')" class="w-8 h-8 rounded-full bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center text-xs transition-colors">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                                <div>
+                                    <p class="text-[10px] font-bold text-white leading-none">Demo Audio</p>
+                                    <span class="text-[8px] text-slate-400">Estudio Ian</span>
+                                </div>
+                            </div>
+                            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-950/40 px-2 py-1 rounded">PRO AUDIO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Videoclip de Música -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="video">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://placehold.co/600x400/27272a/ffffff?text=Videoclip+Musical" alt="Videoclip" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                            <button onclick="openModal('video', 'https://www.w3schools.com/html/movie.mp4', 'Videoclip: Electro Beats')" class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-brand-500 uppercase">Videoclip</span>
+                        <h4 class="font-display font-bold text-lg text-white mt-1">Videoclip: Electro Beats</h4>
+                        <p class="text-slate-400 text-xs mt-2">Producción de videoclip con coreografía artística, humo y corrección de color neón.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5: Fotografía de Alimentos / Gastronomía -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="foto">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://placehold.co/600x400/172554/ffffff?text=Foto+Gourmet" alt="Fotografía Gourmet" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                            <button onclick="openModal('image', 'https://placehold.co/800x1200/172554/ffffff?text=Fotografia+Gourmet+Alta+Resolucion', 'Fotografía Comercial - Hamburguesa Gourmet')" class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-cyan-400 uppercase">Fotografía de Producto</span>
+                        <h4 class="font-display font-bold text-lg text-white mt-1">Hamburguesa Gourmet</h4>
+                        <p class="text-slate-400 text-xs mt-2">Sesión de fotos comerciales de alimentos para redes sociales de restaurante gourmet.</p>
+                    </div>
+                </div>
+
+                <!-- Item 6: Audio Jingles Publicitarios -->
+                <div class="portfolio-item glass-card overflow-hidden group rounded-2xl" data-category="audio">
+                    <div class="p-6 flex flex-col justify-between h-full min-h-[250px]">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-purple-400 uppercase">Audio Comercial</span>
+                                <i class="fa-solid fa-file-audio text-brand-500 text-lg"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-lg text-white">Jingle Radial: Burger Express</h4>
+                            <p class="text-slate-400 text-xs mt-2">Composición, locución y arreglo musical de jingle publicitario de 30 segundos.</p>
+                        </div>
+                        
+                        <!-- Mini Reproductor Integrado -->
+                        <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800 flex items-center justify-between mt-4">
+                            <div class="flex items-center gap-3">
+                                <button onclick="toggleAudioDemo(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')" class="w-8 h-8 rounded-full bg-brand-600 hover:bg-brand-500 text-white flex items-center justify-center text-xs transition-colors">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                                <div>
+                                    <p class="text-[10px] font-bold text-white leading-none">Demo Jingle</p>
+                                    <span class="text-[8px] text-slate-400">Estudio Ian</span>
+                                </div>
+                            </div>
+                            <span class="text-[9px] font-mono text-cyan-400 bg-cyan-950/40 px-2 py-1 rounded">COMPLETO</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cotizador Interactivo de Presupuestos -->
+    <section id="cotizador" class="py-24 bg-slate-900 relative">
+        <!-- Elemento de luz decorativo de fondo -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-cyan-500/10 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-500 uppercase mb-3">Transparencia Financiera</h2>
+                <p class="font-display font-bold text-3xl sm:text-4xl text-white">Cotiza tu Proyecto en un Clic</p>
+                <p class="text-slate-400 mt-2 text-sm">Elige los parámetros ideales para tu producción y obtén una cotización inmediata.</p>
+            </div>
+
+            <!-- Contenedor del Cotizador -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Panel de Configuración de Cotización (Izquierda) -->
+                <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-2xl flex flex-col gap-6 shadow-xl">
+                    <h3 class="font-display font-bold text-lg text-white border-b border-slate-800 pb-4">
+                        <i class="fa-solid fa-sliders text-brand-500 mr-2"></i>Personaliza tu Producción
+                    </h3>
+
+                    <!-- 1. Tipo de Servicio -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-wider uppercase text-slate-300 mb-3">1. Tipo de Servicio Principal</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="service-selector">
+                            <button onclick="setCalcService('video', 450)" class="service-opt-btn p-4 rounded-xl text-left border-2 border-brand-500 bg-brand-500/10 text-white transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-video text-brand-400 text-lg"></i>
+                                <div>
+                                    <p class="font-bold text-sm">Producción Video</p>
+                                    <p class="text-[10px] text-slate-400">Desde $450 USD</p>
+                                </div>
+                            </button>
+                            <button onclick="setCalcService('foto', 250)" class="service-opt-btn p-4 rounded-xl text-left border border-slate-800 hover:border-slate-700 bg-slate-900/50 text-slate-300 hover:text-white transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-camera text-slate-400 text-lg"></i>
+                                <div>
+                                    <p class="font-bold text-sm">Fotografía Pro</p>
+                                    <p class="text-[10px] text-slate-400">Desde $250 USD</p>
+                                </div>
+                            </button>
+                            <button onclick="setCalcService('audio', 200)" class="service-opt-btn p-4 rounded-xl text-left border border-slate-800 hover:border-slate-700 bg-slate-900/50 text-slate-300 hover:text-white transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-microphone text-slate-400 text-lg"></i>
+                                <div>
+                                    <p class="font-bold text-sm">Audio & Podcast</p>
+                                    <p class="text-[10px] text-slate-400">Desde $200 USD</p>
+                                </div>
+                            </button>
+                            <button onclick="setCalcService('streaming', 600)" class="service-opt-btn p-4 rounded-xl text-left border border-slate-800 hover:border-slate-700 bg-slate-900/50 text-slate-300 hover:text-white transition-all flex items-center gap-3">
+                                <i class="fa-solid fa-tower-broadcast text-slate-400 text-lg"></i>
+                                <div>
+                                    <p class="font-bold text-sm">Streaming Vivo</p>
+                                    <p class="text-[10px] text-slate-400">Desde $600 USD</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Duración / Escala de Producción -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-bold tracking-wider uppercase text-slate-300" id="duration-label">2. Duración (Minutos de Entrega)</label>
+                            <span class="text-xs font-bold text-cyan-400 font-mono" id="duration-display">3 Minutos</span>
+                        </div>
+                        <input type="range" id="duration-slider" min="1" max="15" value="3" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400" oninput="updateCalculator()">
+                        <div class="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                            <span>1 Min</span>
+                            <span>15 Min</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Opciones de Postproducción / Extras -->
+                    <div>
+                        <label class="block text-xs font-bold tracking-wider uppercase text-slate-300 mb-3">3. Servicios Adicionales (Opcionales)</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:bg-slate-900 transition-colors">
+                                <input type="checkbox" id="opt-drone" class="rounded text-brand-500 focus:ring-brand-500 bg-slate-950 border-slate-800 w-5 h-5" onchange="updateCalculator()">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Grabación con Drone (4K)</p>
+                                    <p class="text-[10px] text-slate-400">+$150 USD</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:bg-slate-900 transition-colors">
+                                <input type="checkbox" id="opt-voiceover" class="rounded text-brand-500 focus:ring-brand-500 bg-slate-950 border-slate-800 w-5 h-5" onchange="updateCalculator()">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Locutor Profesional</p>
+                                    <p class="text-[10px] text-slate-400">+$100 USD</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:bg-slate-900 transition-colors">
+                                <input type="checkbox" id="opt-fast" class="rounded text-brand-500 focus:ring-brand-500 bg-slate-950 border-slate-800 w-5 h-5" onchange="updateCalculator()">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Entrega Express (48h)</p>
+                                    <p class="text-[10px] text-slate-400">+$120 USD</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:bg-slate-900 transition-colors">
+                                <input type="checkbox" id="opt-script" class="rounded text-brand-500 focus:ring-brand-500 bg-slate-950 border-slate-800 w-5 h-5" onchange="updateCalculator()">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Guion y Dirección Creativa</p>
+                                    <p class="text-[10px] text-slate-400">+$80 USD</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen Financiero y Reserva Rápida (Derecha) -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="glass-panel p-8 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full border border-slate-800 shadow-xl">
+                        <!-- Decoración Superior -->
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-xl"></div>
+                        
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-white mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-receipt text-cyan-400"></i>Resumen de Presupuesto
+                            </h3>
+
+                            <!-- Recibo de desglose interactivo -->
+                            <div class="space-y-4 border-b border-dashed border-slate-800 pb-6 mb-6">
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400" id="receipt-service-name">Producción de Video (Base)</span>
+                                    <span class="font-mono font-semibold text-white" id="receipt-service-price">$450 USD</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400" id="receipt-scale-name">Multiplicador por Duración (3 Min)</span>
+                                    <span class="font-mono font-semibold text-white" id="receipt-scale-price">+$60 USD</span>
+                                </div>
+                                
+                                <!-- Extras en recibo dinámico -->
+                                <div id="receipt-extras-container" class="space-y-3">
+                                    <!-- Añadidos por JS -->
+                                </div>
+                            </div>
+
+                            <!-- Gran Precio Total Reclamado -->
+                            <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 mb-8 text-center relative">
+                                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Total Estimado</p>
+                                <div class="flex items-center justify-center gap-1 mt-1">
+                                    <span class="text-xl font-bold text-slate-400">$</span>
+                                    <span class="text-4xl sm:text-5xl font-extrabold text-white font-mono" id="total-price-display">510</span>
+                                    <span class="text-xs font-bold text-slate-400 ml-1">USD</span>
+                                </div>
+                                <p class="text-[9px] text-slate-400 mt-2"><i class="fa-solid fa-info-circle mr-1"></i>Precios de referencia sujetos a cambios tras revisión de guion técnico.</p>
+                            </div>
+                        </div>
+
+                        <!-- Botón de Solicitud Rápida de Reserva con este Presupuesto -->
+                        <button onclick="bookWithEstimate()" class="w-full py-4 rounded-xl bg-gradient-brand text-white font-bold hover:opacity-95 shadow-lg shadow-brand-500/20 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calendar-check text-lg"></i>Reservar con este Presupuesto
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Nosotros & Filosofía -->
+<section id="nosotros" class="py-24 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Imagen del equipo / Estudio Representativo -->
+            <div class="lg:col-span-5 relative">
+                <div class="absolute -inset-1.5 bg-gradient-brand rounded-2xl blur opacity-30"></div>
+                <div class="relative glass-panel rounded-2xl overflow-hidden p-3 aspect-square max-w-md mx-auto">
+                    <img src="Gemini_Generated_Image_o9c53zo9c53zo9c5.png" alt="Ian Producciones Estudio de Producción" class="w-full h-full object-cover rounded-xl shadow-2xl">
+                    <!-- Mini insignia digital -->
+                    <div class="absolute bottom-6 left-6 glass-panel px-4 py-2 rounded-xl flex items-center gap-2 border border-brand-500/30">
+                        <i class="fa-solid fa-medal text-brand-400"></i>
+                        <span class="text-xs font-bold text-white tracking-wider">Estudio de Alta Gama</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Texto e Historia -->
+            <div class="lg:col-span-7 space-y-6">
+                <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase">¿Quiénes Somos?</h2>
+                <p class="font-display font-bold text-3xl sm:text-4xl text-white">Transformamos Ideas en Impacto Digital Duradero</p>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Fundado por apasionados del cine y el sonido digital, **Ian Producciones** nació con un objetivo claro: ofrecer una calidad de producción técnica superlativa que antes solo estaba al alcance de grandes cadenas. 
+                </p>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Utilizamos equipos con tecnología de última generación (ópticas anamórficas, micrófonos de grado de radiodifusión, servidores redundantes para transmisión en vivo y almacenamiento ultra-rápido en la nube) para garantizar entregas impecables en tiempos récord. No somos solo técnicos; somos narradores de historias.
+                </p>
+
+                <!-- Puntos clave del servicio -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500/15 flex items-center justify-center text-brand-400 mt-0.5">
+                            <i class="fa-solid fa-brain text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Dirección Creativa</h4>
+                            <p class="text-xs text-slate-400 mt-1">Escribimos tu guion técnico y creamos el storyboard de cero.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 mt-0.5">
+                            <i class="fa-solid fa-sliders text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Equipamiento Premium</h4>
+                            <p class="text-xs text-slate-400 mt-1">Ópticas cinematográficas, cámaras Red, micrófonos Neumann.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Testimonios de Clientes Satisfechos -->
+    <section class="py-24 bg-slate-900 border-t border-slate-800/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-brand-500 uppercase mb-3">La Voz de los Creadores</h2>
+                <p class="font-display font-bold text-3xl text-white">¿Qué opinan de trabajar con nosotros?</p>
+            </div>
+
+            <!-- Carrusel / Grid de Testimonios -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-4">
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6 italic">
+                            "La calidad de video y la rapidez con la que captaron la esencia de nuestra marca superó las expectativas. El cotizador interactivo fue exacto y muy profesional."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold text-xs uppercase border border-slate-700">
+                            LM
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Laura Mendoza</h4>
+                            <p class="text-[10px] text-slate-400">Directora de Marketing - ApexTech</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-4">
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6 italic">
+                            "Buscábamos un estudio con locutores profesionales y un buen diseño acústico para nuestro podcast corporativo. Ian Producciones fue la solución ideal. El sonido es cristalino."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold text-xs uppercase border border-slate-700">
+                            RC
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Ricardo Castillo</h4>
+                            <p class="text-[10px] text-slate-400">Creador de Contenido - FinanzasPro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-1 text-amber-400 mb-4">
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                            <i class="fa-solid fa-star text-xs"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6 italic">
+                            "El soporte técnico durante nuestra transmisión de streaming en vivo para el concierto acústico fue impecable. Tuvimos más de 5,000 espectadores simultáneos sin interrupciones."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 font-bold text-xs uppercase border border-slate-700">
+                            SG
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Sofía Gómez</h4>
+                            <p class="text-[10px] text-slate-400">Productora Ejecutiva - Acustic Records</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario Inmersivo de Contacto & Reserva de Proyectos -->
+    <section id="contacto" class="py-24 bg-slate-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Datos Directos de Contacto e Info (Izquierda) -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-3">Establece Contacto</h2>
+                        <p class="font-display font-bold text-3xl sm:text-4xl text-white">Iniciemos tu Siguiente Gran Proyecto</p>
+                        <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                            ¿Listo para crear algo increíble juntos? Envíanos los detalles o solicita una llamada informativa sin costo alguno. Nuestro equipo creativo se comunicará contigo de inmediato.
+                        </p>
+                    </div>
+
+                    <!-- Canales Directos -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-500/30 transition-colors">
+                            <div class="w-11 h-11 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400">
+                                <i class="fa-solid fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Envíanos un Correo</p>
+                                <a href="mailto:ianproducciones623@gmail.com" class="text-sm font-bold text-white hover:text-cyan-400 transition-colors">ianproducciones623@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-500/30 transition-colors">
+                            <div class="w-11 h-11 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium">Nuestras Oficinas</p>
+                                <p class="text-sm font-bold text-white">Posadas, Misiones, Argentina</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Interactivo / Panel de Reserva (Derecha) -->
+                <div class="lg:col-span-7 glass-panel p-6 sm:p-10 rounded-2xl shadow-2xl relative border border-slate-800">
+                    <h3 class="font-display font-bold text-xl text-white mb-6">Completa los Detalles del Proyecto</h3>
+                    
+                    <form id="booking-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Nombre Completo</label>
+                                <input type="text" id="form-name" required class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Ej. Ian Rodríguez">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Correo Electrónico</label>
+                                <input type="email" id="form-email" required class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Ej. nombre@correo.com">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Teléfono / WhatsApp</label>
+                                <input type="tel" id="form-phone" class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Ej. +54 9...">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Categoría del Proyecto</label>
+                                <select id="form-category" class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-sm text-slate-300 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                                    <option value="audiovisual">Producción de Video</option>
+                                    <option value="fotografia">Sesión de Fotografía</option>
+                                    <option value="audio">Grabación de Audio / Podcast</option>
+                                    <option value="streaming">Transmisión en Vivo</option>
+                                    <option value="otro">Otro Proyecto Creativo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Campo para cargar presupuesto cotizado si existe -->
+                        <div id="attached-quote-container" class="hidden">
+                            <div class="p-3 bg-cyan-950/40 border border-cyan-800/80 rounded-xl flex items-center justify-between text-xs text-cyan-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-paperclip text-sm"></i>
+                                    <span>Presupuesto Cotizado Adjunto: <strong id="attached-quote-value">$0</strong></span>
+                                </div>
+                                <button type="button" onclick="detachQuote()" class="text-slate-400 hover:text-white transition-colors">
+                                    <i class="fa-solid fa-times-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase mb-2">Detalles Adicionales del Proyecto</label>
+                            <textarea id="form-desc" rows="4" class="w-full bg-slate-900/80 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all resize-none" placeholder="Cuéntanos un poco sobre tu idea, objetivos o requerimientos especiales..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-brand text-white font-bold hover:opacity-95 shadow-xl shadow-brand-500/10 transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje y Reservar
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Corporativo de Alta Calidad -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Columna 1: Branding -->
+                <div class="md:col-span-1 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg">
+                            <span class="font-display font-extrabold text-sm text-white tracking-wider">IP</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-base tracking-wide text-white leading-none">IAN</h3>
+                            <span class="text-[8px] uppercase tracking-[0.25em] text-cyan-400 font-semibold">Producciones</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Creamos historias digitales memorables con altos estándares de calidad técnica, diseño sonoro y visión cinematográfica.
+                    </p>
+                </div>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest text-white mb-4">Navegación</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#servicios" class="hover:text-cyan-400 transition-colors">Servicios</a></li>
+                        <li><a href="#portafolio" class="hover:text-cyan-400 transition-colors">Portafolio</a></li>
+                        <li><a href="#cotizador" class="hover:text-cyan-400 transition-colors">Cotizador de Costos</a></li>
+                        <li><a href="#contacto" class="hover:text-cyan-400 transition-colors">Contacto directo</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Legalidades -->
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-widest text-white mb-4">Información</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><p>Estudio disponible en toda Argentina</p></li>
+                        <li><p>Horario: Lun - Sáb: 9:00 - 19:00</p></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Políticas de Privacidad</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Redes Sociales -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-xs uppercase tracking-widest text-white mb-4">Síguenos en YouTube</h4>
+                    <div class="flex gap-3">
+                        <a href="https://youtube.com/@ianproducciones" target="_blank" class="w-[140px] h-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center gap-2 text-slate-300 hover:text-white hover:border-brand-500 transition-all text-xs">
+                            <i class="fa-brands fa-youtube text-base text-red-500"></i>
+                            <span class="font-semibold">@ianproducciones</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Inferior -->
+            <div class="border-t border-slate-900 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <p>&copy; 2016 Ian Producciones. Todos los derechos reservados.</p>
+                <p>Hecho con pasión por el arte digital y cinematográfico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Inmersivo de Visualización de Media -->
+    <div id="media-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md">
+        <div class="relative w-full max-w-4xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+            <!-- Botón de Cierre en esquina -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center border border-slate-800 hover:border-red-500/40 transition-all">
+                <i class="fa-solid fa-times"></i>
+            </button>
+
+            <!-- Contenedor del Título del Modal -->
+            <div class="p-6 border-b border-slate-800">
+                <h3 id="modal-title" class="font-display font-bold text-lg text-white">Detalle de Proyecto</h3>
+            </div>
+
+            <!-- Contenedor Dinámico de Media (Video o Imagen) -->
+            <div class="aspect-video w-full bg-black flex items-center justify-center relative">
+                <!-- Video Player Dummy -->
+                <video id="modal-video" controls class="hidden w-full h-full object-cover">
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta el reproductor de video.
+                </video>
+                <!-- Image Viewer Dummy -->
+                <img id="modal-image" src="" alt="Detalle" class="hidden max-h-[70vh] w-auto object-contain">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Personalizado de Feedback de Formularios / Toasts (Sin Alerts!) -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[110] space-y-3 pointer-events-none">
+        <!-- Generados de manera dinámica -->
+    </div>
+
+    <!-- AUDIO ELEMENTO OCULTO PARA REPRODUCTOR -->
+    <audio id="global-audio" class="hidden"></audio>
+
+    <!-- Scripts de interactividad dinámica -->
+    <script>
+        // Configuración Inicial del Cotizador de Presupuestos
+        let calcState = {
+            serviceType: 'video',
+            basePrice: 450,
+            duration: 3,
+            extras: {
+                drone: false,
+                voiceover: false,
+                fastDelivery: false,
+                scriptwriting: false
+            }
+        };
+
+        // Escucha del Scroll para Header Premium
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 40) {
+                header.classList.add('glass-panel', 'shadow-xl', 'h-16');
+                header.classList.remove('h-20');
+            } else {
+                header.classList.remove('glass-panel', 'shadow-xl', 'h-16');
+                header.classList.add('h-20');
+            }
+        });
+
+        // Alternar Menú Móvil
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                toggleMobileMenu();
+            });
+        }
+
+        // --- SECCIÓN PORTAFOLIO INTERACTIVO ---
+        function filterPortfolio(category) {
+            // Actualizar pestañas activas
+            document.querySelectorAll('.portfolio-tab').forEach(tab => {
+                tab.classList.remove('bg-brand-600', 'text-white');
+                tab.classList.add('text-slate-400');
+            });
+            document.getElementById(`btn-${category}`).classList.remove('text-slate-400');
+            document.getElementById(`btn-${category}`).classList.add('bg-brand-600', 'text-white');
+
+            // Filtrar ítems de la grilla
+            const items = document.querySelectorAll('.portfolio-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // --- SISTEMA DE REPRODUCTOR DE AUDIO DE DEMO ---
+        let currentAudioBtn = null;
+        const globalAudio = document.getElementById('global-audio');
+
+        function toggleAudioDemo(btn, src) {
+            if (currentAudioBtn === btn) {
+                // Si hace click en el mismo botón, pausar
+                if (globalAudio.paused) {
+                    globalAudio.play();
+                    btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                } else {
+                    globalAudio.pause();
+                    btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                }
+            } else {
+                // Detener anterior botón si existe
+                if (currentAudioBtn) {
+                    currentAudioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                }
+                currentAudioBtn = btn;
+                globalAudio.src = src;
+                globalAudio.play();
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                showToast('Reproduciendo demo de audio...', 'info');
+            }
+        }
+
+        globalAudio.onended = function() {
+            if (currentAudioBtn) {
+                currentAudioBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                currentAudioBtn = null;
+            }
+        };
+
+        // --- SECCIÓN DE COTIZADOR DE PRESUPUESTO INTERACTIVO ---
+        function setCalcService(service, price) {
+            calcState.serviceType = service;
+            calcState.basePrice = price;
+
+            // Actualizar UI del Selector de Servicios
+            document.querySelectorAll('.service-opt-btn').forEach(btn => {
+                btn.className = "service-opt-btn p-4 rounded-xl text-left border border-slate-800 hover:border-slate-700 bg-slate-900/50 text-slate-300 hover:text-white transition-all flex items-center gap-3";
+            });
+
+            const activeBtn = event.currentTarget;
+            activeBtn.className = "service-opt-btn p-4 rounded-xl text-left border-2 border-brand-500 bg-brand-500/10 text-white transition-all flex items-center gap-3";
+
+            // Modificar etiquetas de escala según el tipo de servicio
+            const label = document.getElementById('duration-label');
+            const slider = document.getElementById('duration-slider');
+            if (service === 'video') {
+                label.innerText = '2. Duración (Minutos del Video)';
+                slider.min = "1"; slider.max = "15";
+            } else if (service === 'foto') {
+                label.innerText = '2. Cantidad de Fotos Retocadas';
+                slider.min = "5"; slider.max = "100"; slider.value = "20";
+            } else if (service === 'audio') {
+                label.innerText = '2. Duración del Episodio (Minutos)';
+                slider.min = "5"; slider.max = "60"; slider.value = "20";
+            } else if (service === 'streaming') {
+                label.innerText = '2. Duración del Evento (Horas)';
+                slider.min = "1"; slider.max = "8"; slider.value = "2";
+            }
+
+            updateCalculator();
+        }
+
+        function updateCalculator() {
+            const slider = document.getElementById('duration-slider');
+            const durationVal = parseInt(slider.value);
+            calcState.duration = durationVal;
+
+            // Actualizar checkboxes extras
+            calcState.extras.drone = document.getElementById('opt-drone').checked;
+            calcState.extras.voiceover = document.getElementById('opt-voiceover').checked;
+            calcState.extras.fastDelivery = document.getElementById('opt-fast').checked;
+            calcState.extras.scriptwriting = document.getElementById('opt-script').checked;
+
+            // Calcular desglose
+            let serviceLabel = "Producción de Video (Base)";
+            if (calcState.serviceType === 'foto') serviceLabel = "Fotografía Profesional (Base)";
+            if (calcState.serviceType === 'audio') serviceLabel = "Audio & Podcast (Base)";
+            if (calcState.serviceType === 'streaming') serviceLabel = "Streaming en Vivo (Base)";
+
+            document.getElementById('receipt-service-name').innerText = serviceLabel;
+            document.getElementById('receipt-service-price').innerText = `$${calcState.basePrice} USD`;
+
+            // Calcular costo de duración/escala adicional
+            let scalePrice = 0;
+            let scaleLabel = "";
+            if (calcState.serviceType === 'video') {
+                scalePrice = (durationVal - 1) * 20; // +20 USD por minuto adicional
+                scaleLabel = `Duración Extra (${durationVal} Min)`;
+                document.getElementById('duration-display').innerText = `${durationVal} Minutos`;
+            } else if (calcState.serviceType === 'foto') {
+                scalePrice = (durationVal - 5) * 5; // +5 USD por foto adicional
+                scaleLabel = `Fotos Retocadas (${durationVal} Fotos)`;
+                document.getElementById('duration-display').innerText = `${durationVal} Fotos`;
+            } else if (calcState.serviceType === 'audio') {
+                scalePrice = (durationVal - 5) * 3; // +3 USD por minuto de podcast
+                scaleLabel = `Edición de Audio (${durationVal} Min)`;
+                document.getElementById('duration-display').innerText = `${durationVal} Minutos`;
+            } else if (calcState.serviceType === 'streaming') {
+                scalePrice = (durationVal - 1) * 80; // +80 USD por hora de transmisión
+                scaleLabel = `Tiempo de Streaming (${durationVal} Horas)`;
+                document.getElementById('duration-display').innerText = `${durationVal} Horas`;
+            }
+
+            document.getElementById('receipt-scale-name').innerText = scaleLabel;
+            document.getElementById('receipt-scale-price').innerText = `+$${scalePrice} USD`;
+
+            // Procesar Extras seleccionados
+            let extrasTotal = 0;
+            const extrasContainer = document.getElementById('receipt-extras-container');
+            extrasContainer.innerHTML = ''; // Limpiar anteriores
+
+            if (calcState.extras.drone) {
+                addExtraToReceipt("Grabación Drone 4K", 150);
+                extrasTotal += 150;
+            }
+            if (calcState.extras.voiceover) {
+                addExtraToReceipt("Locutor Profesional", 100);
+                extrasTotal += 100;
+            }
+            if (calcState.extras.fastDelivery) {
+                addExtraToReceipt("Entrega Express 48h", 120);
+                extrasTotal += 120;
+            }
+            if (calcState.extras.scriptwriting) {
+                addExtraToReceipt("Guion & Creatividad", 80);
+                extrasTotal += 80;
+            }
+
+            const totalPrice = calcState.basePrice + scalePrice + extrasTotal;
+            document.getElementById('total-price-display').innerText = totalPrice;
+        }
+
+        function addExtraToReceipt(name, price) {
+            const container = document.getElementById('receipt-extras-container');
+            const div = document.createElement('div');
+            div.className = "flex justify-between items-center text-xs text-slate-300";
+            div.innerHTML = `
+                <span class="text-slate-400 font-medium">+ ${name}</span>
+                <span class="font-mono font-semibold">+$${price} USD</span>
+            `;
+            container.appendChild(div);
+        }
+
+        // Adjuntar cotización al formulario de reservas
+        let attachedQuote = 0;
+
+        function bookWithEstimate() {
+            const calculatedPrice = document.getElementById('total-price-display').innerText;
+            attachedQuote = calculatedPrice;
+
+            // Rellenar tipo de proyecto en formulario de contacto
+            const select = document.getElementById('form-category');
+            select.value = calcState.serviceType;
+
+            // Mostrar el contenedor de la cotización adjuntada
+            document.getElementById('attached-quote-container').classList.remove('hidden');
+            document.getElementById('attached-quote-value').innerText = `$${calculatedPrice} USD`;
+
+            // Redirigir suavemente al formulario de contacto
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+            showToast('Presupuesto adjuntado al formulario correctamente.', 'success');
+        }
+
+        function detachQuote() {
+            attachedQuote = 0;
+            document.getElementById('attached-quote-container').classList.add('hidden');
+            showToast('Cotización removida del formulario.', 'info');
+        }
+
+        // --- SISTEMA DE VENTANA MODAL (VISTA MEDIA) ---
+        function openModal(type, source, title) {
+            const modal = document.getElementById('media-modal');
+            const video = document.getElementById('modal-video');
+            const img = document.getElementById('modal-image');
+            
+            modal.classList.remove('hidden');
+            document.getElementById('modal-title').innerText = title;
+
+            if (type === 'video') {
+                img.classList.add('hidden');
+                video.classList.remove('hidden');
+                video.src = source;
+                video.play();
+            } else if (type === 'image') {
+                video.classList.add('hidden');
+                video.pause();
+                img.classList.remove('hidden');
+                img.src = source;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('media-modal');
+            const video = document.getElementById('modal-video');
+            video.pause();
+            video.src = "";
+            modal.classList.add('hidden');
+        }
+
+        // --- SISTEMA DE TOASTS FEEDBACK EXCLUSIVO ---
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `p-4 rounded-xl shadow-2xl border flex items-center gap-3 text-sm pointer-events-auto transition-all duration-300 opacity-0 translate-y-2 transform max-w-sm`;
+            
+            let icon = '';
+            if (type === 'success') {
+                toast.classList.add('bg-emerald-950/90', 'border-emerald-800', 'text-emerald-300');
+                icon = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+            } else if (type === 'error') {
+                toast.classList.add('bg-rose-950/90', 'border-rose-800', 'text-rose-300');
+                icon = '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+            } else {
+                toast.classList.add('bg-slate-900/95', 'border-slate-800', 'text-slate-200');
+                icon = '<i class="fa-solid fa-info-circle text-cyan-400"></i>';
+            }
+
+            toast.innerHTML = `
+                ${icon}
+                <div class="flex-1">${message}</div>
+                <button class="text-slate-400 hover:text-white ml-2 text-xs" onclick="this.parentElement.remove()"><i class="fa-solid fa-times"></i></button>
+            `;
+
+            container.appendChild(toast);
+
+            // Animar entrada
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            // Auto eliminar después de 4 segundos
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // --- GESTIÓN DEL ENVIÓ DE FORMULARIO DE CONTACTO ---
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const category = document.getElementById('form-category').value;
+            const details = document.getElementById('form-desc').value;
+
+            // Formular feedback al usuario de manera profesional
+            let feedbackMsg = `¡Muchas gracias, ${name}! Hemos recibido tu propuesta de proyecto sobre <strong>${category}</strong>. `;
+            if (attachedQuote > 0) {
+                feedbackMsg += `Incluimos la cotización estimada de <strong>$${attachedQuote} USD</strong> en el informe.`;
+            }
+            feedbackMsg += " Nuestro equipo técnico te contactará dentro de las próximas 2 horas hábiles.";
+
+            showToast(feedbackMsg, 'success');
+
+            // Limpiar formulario tras envío simulado
+            document.getElementById('booking-form').reset();
+            detachQuote();
+        }
+
+        // Inicializar el cotizador en la primera carga
+        window.onload = function() {
+            updateCalculator();
+        }
+    </script>
+</body>
+</html>
